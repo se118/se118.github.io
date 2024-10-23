@@ -1,165 +1,101 @@
-let cart = [
-    { id: 2, name: "runner 7", price: 122, description: "new bright", imageUrl: "https://i.pinimg.com/736x/30/15/5d/30155deb668bbc66d441ef4cd1d69c0b.jpg" },
-    ];
-let products = [
-    { id: 2, name: "runner 7", price: 122, description: "new bright", imageUrl: "https://i.pinimg.com/736x/30/15/5d/30155deb668bbc66d441ef4cd1d69c0b.jpg" },
-    ];
+// scripts.js
 
-// Render products in the store
-function renderProducts() {
-    const productList = document.getElementById('product-list');
-    productList.innerHTML = '';
-    
-    products.forEach(product => {
-        const productElement = `
-            <div class="product" data-id="${product.id}">
-                <img src="${product.imageUrl}" alt="${product.name}" />
-                <h3>${product.name}</h3>
-                <p>$${product.price.toFixed(2)}</p>
-                <p class="description">${product.description}</p>
-                <button onclick="addToCart(${product.id})">Add to Cart</button>
-            </div>
-        `;
-        productList.innerHTML += productElement;
-    });
+let cart = [];
+let total = 0;
+
+// Fireworks variables
+const canvas = document.getElementById('fireworks-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function addProduct(name, price, button) {
+    const product = { name, price };
+    cart.push(product);
+    total += price;
+
+    // Update cart display
+    displayCart();
+
+    // Get the position of the button to position fireworks
+    const rect = button.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    showFireworks(x, y); // Fireworks at the button's position
 }
 
-// Add new product to the store
-document.getElementById('add-product-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const name = document.getElementById('product-name').value;
-    const price = parseFloat(document.getElementById('product-price').value);
-    const description = document.getElementById('product-description').value;
-    const imageUrl = document.getElementById('product-image').value;
-
-    const newProduct = {
-        id: products.length + 1,
-        name,
-        price,
-        description,
-        imageUrl
-    };
-
-    products.push(newProduct);
-    renderProducts();
-
-    // Clear the form
-    document.getElementById('add-product-form').reset();
-});
-
-// Admin login
-document.getElementById('login-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const password = document.getElementById('admin-password').value;
-    const adminPassword = '88#Seif#88'; // Set your desired admin password here
-
-    if (password === adminPassword) {
-        document.getElementById('admin-section').style.display = 'block';
-        alert('Admin login successful.');
-    } else {
-        alert('Invalid password. Access denied.');
-    }
-});
-
-// Add product to cart
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    const cartProduct = cart.find(p => p.id === productId);
-    
-    if (cartProduct) {
-        cartProduct.quantity++;
-    } else {
-        cart.push({ ...product, quantity: 1 });
-    }
-    
-    updateCartUI();
-}
-
-// Remove product from cart
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCartUI();
-}
-
-// Update the cart display and total price
-function updateCartUI() {
+function displayCart() {
     const cartItems = document.getElementById('cart-items');
-    const cartCount = document.getElementById('cart-count');
-    const totalPrice = document.getElementById('total-price');
-
     cartItems.innerHTML = '';
-    let total = 0;
-
-    cart.forEach((item, index) => {
+    cart.forEach((item) => {
         const li = document.createElement('li');
-        li.innerHTML = `
-            ${item.name} - $${item.price.toFixed(2)} 
-            <div class="quantity-control">
-                <button onclick="decreaseQuantity(${index})">-</button>
-                <span>${item.quantity}</span>
-                <button onclick="increaseQuantity(${index})">+</button>
-            </div>
-            <button onclick="removeFromCart(${index})">Remove</button>
-        `;
+        li.textContent = `${item.name} - LE ${item.price.toFixed(2)}`; // Changed to LE
         cartItems.appendChild(li);
-        total += item.price * item.quantity;
     });
-
-    totalPrice.textContent = total.toFixed(2);
-    cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('total-price').textContent = `Total: LE ${total.toFixed(2)}`; // Changed to LE
 }
 
-// Increase product quantity in the cart
-function increaseQuantity(index) {
-    cart[index].quantity++;
-    updateCartUI();
-}
+// Fireworks effect function
+function showFireworks(x, y) {
+    const particles = [];
+    const numParticles = 100;
 
-// Decrease product quantity in the cart
-function decreaseQuantity(index) {
-    if (cart[index].quantity > 1) {
-        cart[index].quantity--;
-    } else {
-        removeFromCart(index);
-    }
-    updateCartUI();
-}
-
-// Checkout and send order details to WhatsApp
-function checkout() {
-    if (cart.length === 0) {
-        alert("Your cart is empty.");
-        return;
+    for (let i = 0; i < numParticles; i++) {
+        particles.push(new Particle(x, y));
     }
 
-    let message = "Order details:%0A%0A";
-    cart.forEach(item => {
-        message += `${item.name} - Quantity: ${item.quantity}, Price: $${(item.price * item.quantity).toFixed(2)}%0A`;
-    });
-    
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    message += `%0ATotal Price: $${total.toFixed(2)}`;
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((particle, index) => {
+            particle.update();
+            particle.draw(ctx);
 
-    const phoneNumber = '201112418887';  // Replace with the target phone number
-    const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+            // Remove particle if it goes out of bounds
+            if (particle.alpha <= 0) {
+                particles.splice(index, 1);
+            }
+        });
 
-    // Redirect to WhatsApp to send the message
-    window.open(whatsappURL, '_blank');
+        if (particles.length) {
+            requestAnimationFrame(animate);
+        }
+    }
+    animate();
 }
 
-// Load initial products
-function loadInitialProducts() {
-    products = [
-        { id: 1, name: "Product 1", price: 29.99, description: "High-quality product with great features", imageUrl: "https://m.media-amazon.com/images/I/81fsQAqKoWL.__AC_SX300_SY300_QL70_FMwebp_.jpg" },
-        { id: 2, name: "Product 2", price: 49.99, description: "Premium design and durability", imageUrl: "https://m.media-amazon.com/images/I/71L2vXVmsKL.__AC_SX300_SY300_QL70_FMwebp_.jpg" },
-        { id: 3, name: "Product 3", price: 19.99, description: "Affordable product for everyday use", imageUrl: "https://m.media-amazon.com/images/I/71wqAVUafBL.__AC_SX300_SY300_QL70_FMwebp_.jpg" }
-    
-    { id: 2, name: "runner 7", price: 122, description: "new bright", imageUrl: "https://i.pinimg.com/736x/30/15/5d/30155deb668bbc66d441ef4cd1d69c0b.jpg" },
-    ];
-    renderProducts();
+// Particle class
+class Particle {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 5 + 1;
+        this.speedX = (Math.random() - 0.5) * 6;
+        this.speedY = (Math.random() - 0.5) * 6;
+        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        this.alpha = 1;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha -= 0.01; // Fade out
+    }
+
+    draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
 }
 
-// Initialize the app
-loadInitialProducts();
+// Event listener for checkout button
+document.getElementById('checkout-button').addEventListener('click', () => {
+    const orderDetails = cart.map(item => `${item.name}: LE ${item.price.toFixed(2)}`).join(', '); // Changed to LE
+    const message = `Order: ${orderDetails} Total: LE ${total.toFixed(2)}`; // Changed to LE
+    window.open(`https://wa.me/201112418887?text=${encodeURIComponent(message)}`);
+});
