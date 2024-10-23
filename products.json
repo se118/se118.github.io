@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Product 1",
+        "description": "This is a sample product.",
+        "price": 100.00,
+        "image": "https://m.media-amazon.com/images/I/81fsQAqKoWL.__AC_SX300_SY300_QL70_FMwebp_.jpg"
+    },
+    {
+        "name": "Product 2",
+        "description": "Another example product.",
+        "price": 150.00,
+        "image": "https://m.media-amazon.com/images/I/71L2vXVmsKL.__AC_SX300_SY300_QL70_FMwebp_.jpg"
+    },
+    {
+        "name": "Product 3",
+        "description": "Stylish modern product with great features.",
+        "price": 200.00,
+        "image": "https://m.media-amazon.com/images/I/71wqAVUafBL.__AC_SX300_SY300_QL70_FMwebp_.jpg"
+    },
+    {
+        "name": "Product 4",
+        "description": "A practical product for everyday use.",
+        "price": 120.00,
+        "image": "https://m.media-amazon.com/images/I/51HzG6LUtUL._AC_SX300_SY300_.jpg"
+    },
+    {
+        "name": "Product 5",
+        "description": "High-end premium product for special occasions.",
+        "price": 300.00,
+        "image": "https://m.media-amazon.com/images/I/41+eK8zBwQL._AC_SX300_SY300_.jpg"
+    },
+    {
+        "name": "Product 6",
+        "description": "Innovative product with a sleek design.",
+        "price": 180.00,
+        "image": "https://m.media-amazon.com/images/I/71ILZJjRiOL._AC_SX300_SY300_.jpg"
+    }
+]

@@ -3,77 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Professional Online Store</title>
+    <title>Online Store</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header>
-      <h1>Welcome to My Store</h1>
+      <h1>Welcome to Our Store</h1>
     </header>
 
-    <main>
-      <div id="product-list">
-        <div class="product">
-          <img
-            src="https://m.media-amazon.com/images/I/81fsQAqKoWL.__AC_SX300_SY300_QL70_FMwebp_.jpg"
-            alt="Product 1"
-          />
-          <h3>Product 1</h3>
-          <p>Description for Product 1</p>
-          <p class="price">LE 29.99</p>
-          <button
-            class="add-to-cart"
-            onclick="addProduct('Product 1', 29.99, this)"
-          >
-            Add to Cart
-          </button>
-        </div>
-        <div class="product">
-          <img
-            src="https://m.media-amazon.com/images/I/71L2vXVmsKL.__AC_SX300_SY300_QL70_FMwebp_.jpg"
-            alt="Product 2"
-          />
-          <h3>Product 2</h3>
-          <p>Description for Product 2</p>
-          <p class="price">LE 19.99</p>
-          <button
-            class="add-to-cart"
-            onclick="addProduct('Product 2', 19.99, this)"
-          >
-            Add to Cart
-          </button>
-        </div>
-        <div class="product">
-          <img
-            src="https://m.media-amazon.com/images/I/71wqAVUafBL.__AC_SX300_SY300_QL70_FMwebp_.jpg"
-            alt="Product 3"
-          />
-          <h3>Product 3</h3>
-          <p>Description for Product 3</p>
-          <p class="price">LE 39.99</p>
-          <button
-            class="add-to-cart"
-            onclick="addProduct('Product 3', 39.99, this)"
-          >
-            Add to Cart
-          </button>
-        </div>
-      </div>
+    <div id="product-list">
+      <!-- Products will be dynamically added here by the Python script -->
+    </div>
 
-      <div id="cart">
-        <h2>Shopping Cart</h2>
-        <ul id="cart-items"></ul>
-        <p id="total-price">Total: LE 0.00</p>
-      </div>
-    </main>
-
-    <footer>
+    <div id="cart-section">
+      <h2>Your Cart</h2>
+      <div id="cart-items"></div>
+      <p>Total: <span id="total-price">LE 0.00</span></p>
       <button id="checkout-button">Checkout</button>
-    </footer>
-
-    <!-- Fireworks Canvas -->
-    <canvas id="fireworks-canvas"></canvas>
+    </div>
 
     <script src="scripts.js"></script>
+    <canvas id="fireworks-canvas"></canvas>
   </body>
 </html>
