@@ -1,52 +1,106 @@
 /* styles.css */
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #FFF9F2; /* Light background */
+    color: #333;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden; /* Disable horizontal scroll */
 }
 
 header {
     text-align: center;
+    background-color: #AA96DA; /* Dark purple */
+    padding: 20px;
+    color: white;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
 }
 
 #product-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .product {
     background: white;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
     text-align: center;
-    width: 200px;
+    width: 250px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .product img {
     max-width: 100%;
     height: auto;
+    border-radius: 10px;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #FCBAD3; /* Pink */
+}
+
+.add-to-cart {
+    background-color: #A8D8EA; /* Light blue */
+    color: #333;
+    border: none;
+    padding: 10px 15px;
     border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-to-cart:hover {
+    background-color: #AA96DA; /* Purple hover */
+    transform: scale(1.05);
 }
 
 #cart {
     background-color: white;
-    padding: 10px;
+    padding: 20px;
     border: 1px solid #ccc;
-    max-height: 300px; /* Limit height for scrolling */
-    overflow-y: auto; /* Enable vertical scrolling */
+    margin-top: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 footer {
     text-align: center;
     margin-top: 20px;
+}
+
+footer #checkout-button {
+    background-color: #FCBAD3; /* Pink */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+footer #checkout-button:hover {
+    background-color: #AA96DA; /* Purple hover */
+    transform: scale(1.05);
 }
 
 /* Fireworks Canvas */
@@ -58,4 +112,9 @@ footer {
     height: 100%;
     pointer-events: none;
     z-index: 1; /* Stay in front of other elements */
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
 }
