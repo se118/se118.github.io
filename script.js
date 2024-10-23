@@ -1,5 +1,9 @@
-let cart = [];
-let products = [];
+let cart = [
+    { id: 2, name: "runner 7", price: 122, description: "new bright", imageUrl: "https://i.pinimg.com/736x/30/15/5d/30155deb668bbc66d441ef4cd1d69c0b.jpg" },
+    ];
+let products = [
+    { id: 2, name: "runner 7", price: 122, description: "new bright", imageUrl: "https://i.pinimg.com/736x/30/15/5d/30155deb668bbc66d441ef4cd1d69c0b.jpg" },
+    ];
 
 // Render products in the store
 function renderProducts() {
@@ -151,6 +155,8 @@ function loadInitialProducts() {
         { id: 1, name: "Product 1", price: 29.99, description: "High-quality product with great features", imageUrl: "https://m.media-amazon.com/images/I/81fsQAqKoWL.__AC_SX300_SY300_QL70_FMwebp_.jpg" },
         { id: 2, name: "Product 2", price: 49.99, description: "Premium design and durability", imageUrl: "https://m.media-amazon.com/images/I/71L2vXVmsKL.__AC_SX300_SY300_QL70_FMwebp_.jpg" },
         { id: 3, name: "Product 3", price: 19.99, description: "Affordable product for everyday use", imageUrl: "https://m.media-amazon.com/images/I/71wqAVUafBL.__AC_SX300_SY300_QL70_FMwebp_.jpg" }
+    
+    { id: 2, name: "runner 7", price: 122, description: "new bright", imageUrl: "https://i.pinimg.com/736x/30/15/5d/30155deb668bbc66d441ef4cd1d69c0b.jpg" },
     ];
     renderProducts();
 }
